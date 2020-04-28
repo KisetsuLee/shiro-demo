@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ShiroDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ShiroDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ShiroDemoApplication.class, args);
+    }
 
 }
