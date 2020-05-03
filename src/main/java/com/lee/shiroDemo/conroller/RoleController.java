@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleController {
     @RequestMapping("admin")
     public String admin() {
-        Subject subject = SecurityUtils.getSubject();
         return "拥有角色admin";
     }
 

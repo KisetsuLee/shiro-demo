@@ -7,10 +7,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +25,11 @@ public class LoginController {
     @Autowired
     public LoginController(LoginDao loginDao) {
         this.loginDao = loginDao;
+    }
+
+    @GetMapping("index")
+    public String index(){
+        return "大哥大嫂过年好……我是index";
     }
 
     @PostMapping("signUp")

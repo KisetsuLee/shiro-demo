@@ -4,6 +4,7 @@ import com.lee.shiroDemo.dao.LoginDao;
 import com.lee.shiroDemo.entity.User;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,10 @@ public class AuthRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        // SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        // User user = (User) principals.getPrimaryPrincipal();
+        //
+        // return info;
         return null;
     }
 

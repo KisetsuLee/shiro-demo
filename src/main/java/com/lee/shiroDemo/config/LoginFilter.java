@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Description:
@@ -20,21 +21,20 @@ public class LoginFilter extends FormAuthenticationFilter {
      * 有则遍历匹配后进行处理，处理路径后，会执行 {@link #isFilterChainContinued }方法
      * 其中会返回{@link #onPreHandle(ServletRequest, ServletResponse, Object)}结果
      *
-     * @see org.apache.shiro.web.filter.PathMatchingFilter
-     *
      * @param request
      * @param response
      * @return
      * @throws Exception
+     * @see org.apache.shiro.web.filter.PathMatchingFilter
      */
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
-        // System.out.println("preHandle");
         return super.preHandle(request, response);
     }
 
     /**
      * 在preHandle之后执行
+     *
      * @param request
      * @param response
      * @param mappedValue
@@ -43,24 +43,24 @@ public class LoginFilter extends FormAuthenticationFilter {
      */
     @Override
     public boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-        // System.out.println("onPreHandle");
         return super.onPreHandle(request, response, mappedValue);
     }
 
     /**
      * 执行完filterChain后执行的方法 {@link #executeChain(ServletRequest, ServletResponse, FilterChain)}
+     *
      * @param request
      * @param response
      * @throws Exception
      */
     @Override
     protected void postHandle(ServletRequest request, ServletResponse response) throws Exception {
-        // System.out.println("postHandle");
         super.postHandle(request, response);
     }
 
     /**
      * 执行完这个filter逻辑后，最后执行的部分，用来处理错误或者清理资源
+     *
      * @param request
      * @param response
      * @param exception
@@ -68,7 +68,6 @@ public class LoginFilter extends FormAuthenticationFilter {
      */
     @Override
     public void afterCompletion(ServletRequest request, ServletResponse response, Exception exception) throws Exception {
-        System.out.println("afterCompletion");
         super.afterCompletion(request, response, exception);
     }
 
@@ -85,7 +84,10 @@ public class LoginFilter extends FormAuthenticationFilter {
      */
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        System.out.println("onAccessDenied");
-        return super.onAccessDenied(request, response);
+        // 如果没有登录我们返回401
+        ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().write("没登录，你在想peach！");
+        return false;
     }
 }
