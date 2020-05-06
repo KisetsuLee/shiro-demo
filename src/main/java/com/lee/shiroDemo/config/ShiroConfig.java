@@ -1,9 +1,10 @@
 package com.lee.shiroDemo.config;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,16 +20,19 @@ import java.util.LinkedHashMap;
  */
 @Configuration
 public class ShiroConfig {
+
     @Bean
     public DefaultWebSecurityManager securityManager(AuthRealm realm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setSessionManager(new DefaultWebSessionManager());
         securityManager.setRealm(realm); // 告诉securityManager进行认证的realm
+        securityManager.setCacheManager(new MemoryConstrainedCacheManager());
         SecurityUtils.setSecurityManager(securityManager);// 告诉shiro要使用的securityManager
         return securityManager;
     }
 
     @Bean
-    public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager, LoginFilter loginFilter, RoleFilter roleFilter) {
+    public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
@@ -38,13 +42,14 @@ public class ShiroConfig {
         pattern.put("/api/signUp", "anon");
         pattern.put("/api/index", "anon");
         pattern.put("/role/admin", "roleFilter[1]");
-        pattern.put("/role/**", "roles[100002]，perms[permission added]");
+//        pattern.put("/role/admin", "anon");
+//        pattern.put("/role/**", "roles[100002]，perms[permission added]");
         pattern.put("/**", "authc");// 通过认证后访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(pattern);
 
         LinkedHashMap<String, Filter> filterMap = new LinkedHashMap<>();
-        filterMap.put("loginFilter", loginFilter);
-        filterMap.put("roleFilter", roleFilter);
+        filterMap.put("loginFilter", new LoginFilter());
+        filterMap.put("roleFilter", new RoleFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         return shiroFilterFactoryBean;
     }

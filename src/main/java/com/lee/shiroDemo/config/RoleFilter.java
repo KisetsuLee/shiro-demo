@@ -14,7 +14,6 @@ import java.nio.charset.StandardCharsets;
  * Date: 2020-04-30
  * Time: 14:06
  */
-@Component
 public class RoleFilter extends AccessControlFilter {
 
     @Override
