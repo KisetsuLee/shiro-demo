@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 2020-04-30
  * Time: 11:23
  */
-@Component
 public class LoginFilter extends FormAuthenticationFilter {
     /**
      * 主要用于处理路径的匹配，如果没有设置任何路径拦截，直接通过，
