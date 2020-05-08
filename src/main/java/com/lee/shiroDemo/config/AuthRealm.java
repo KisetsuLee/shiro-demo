@@ -33,10 +33,6 @@ public class AuthRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        // SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        // User user = (User) principals.getPrimaryPrincipal();
-        //
-        // return info;
         return null;
     }
 

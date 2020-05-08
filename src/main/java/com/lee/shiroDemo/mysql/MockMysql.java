@@ -24,7 +24,7 @@ public class MockMysql {
         List<Role> roles1 = new ArrayList<>();
         roles1.add(new Role("admin", Arrays.asList(Role.Permission.READ, Role.Permission.WRITE)));
         List<Role> roles2 = new ArrayList<>();
-        roles1.add(new Role("admin", Arrays.asList(Role.Permission.READ)));
+        roles1.add(new Role("guest", Arrays.asList(Role.Permission.READ)));
         User zhangsan = new User("zhangsan", "zhangsan", roles1);
         User lisi = new User("lisi", "lisi", roles2);
         User wangwu = new User("wangwu", "wangwu", null);

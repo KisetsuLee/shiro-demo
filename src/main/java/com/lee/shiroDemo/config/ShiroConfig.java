@@ -24,9 +24,9 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSecurityManager securityManager(AuthRealm realm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setSessionManager(new DefaultWebSessionManager());
+        // securityManager.setSessionManager(new DefaultWebSessionManager());
         securityManager.setRealm(realm); // 告诉securityManager进行认证的realm
-        securityManager.setCacheManager(new MemoryConstrainedCacheManager());
+        // securityManager.setCacheManager(new MemoryConstrainedCacheManager());
         SecurityUtils.setSecurityManager(securityManager);// 告诉shiro要使用的securityManager
         return securityManager;
     }
@@ -41,10 +41,9 @@ public class ShiroConfig {
         pattern.put("/api/login", "anon");// 匿名访问
         pattern.put("/api/signUp", "anon");
         pattern.put("/api/index", "anon");
-        pattern.put("/role/admin", "roleFilter[1]");
-//        pattern.put("/role/admin", "anon");
-//        pattern.put("/role/**", "roles[100002]，perms[permission added]");
-        pattern.put("/**", "authc");// 通过认证后访问
+        pattern.put("/role/admin", "roleFilter[admin]");
+        pattern.put("/role/guest", "roleFilter[admin,guest]");
+        pattern.put("/**", "loginFilter");// 通过认证后访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(pattern);
 
         LinkedHashMap<String, Filter> filterMap = new LinkedHashMap<>();
