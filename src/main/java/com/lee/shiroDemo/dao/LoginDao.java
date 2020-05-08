@@ -3,6 +3,7 @@ package com.lee.shiroDemo.dao;
 import com.lee.shiroDemo.entity.User;
 import com.lee.shiroDemo.mysql.MockMysql;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 /**

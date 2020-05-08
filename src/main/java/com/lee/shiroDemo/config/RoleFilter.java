@@ -22,10 +22,12 @@ import java.util.stream.Collectors;
  */
 public class RoleFilter extends AccessControlFilter {
     // 因为这个Filter没有被Spring管理，但是又需要获取Spring容器的Bean
-    private LoginDao loginDao = SpringContext.getBean(LoginDao.class);
+    // private LoginDao loginDao = SpringContext.getBean(LoginDao.class);
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+        LoginDao loginDao = SpringContext.getBean(LoginDao.class);
+
         Subject subject = getSubject(request, response);
         String[] rolesArray = (String[]) mappedValue;// 这里得到的就是写在配置文件后面的方括号内容,指定了有权获取资源的角色或权限
         if (rolesArray == null || rolesArray.length == 0) {

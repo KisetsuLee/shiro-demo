@@ -24,9 +24,9 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSecurityManager securityManager(AuthRealm realm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        // securityManager.setSessionManager(new DefaultWebSessionManager());
+        securityManager.setSessionManager(new DefaultWebSessionManager());
         securityManager.setRealm(realm); // 告诉securityManager进行认证的realm
-        // securityManager.setCacheManager(new MemoryConstrainedCacheManager());
+        securityManager.setCacheManager(new MemoryConstrainedCacheManager());
         SecurityUtils.setSecurityManager(securityManager);// 告诉shiro要使用的securityManager
         return securityManager;
     }
