@@ -1,7 +1,6 @@
 package com.lee.shiroDemo.config;
 
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
@@ -37,13 +36,13 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
         // 配置url和对应的角色映射 以下的角色都是shiro内置的
-        HashMap<String, String> pattern = new HashMap<>();
+        LinkedHashMap<String, String> pattern = new LinkedHashMap<>();
         pattern.put("/api/login", "anon");// 匿名访问
         pattern.put("/api/signUp", "anon");
         pattern.put("/api/index", "anon");
-        pattern.put("/role/admin", "roleFilter[admin]");
-        pattern.put("/role/guest", "roleFilter[admin,guest]");
-        pattern.put("/**", "loginFilter");// 通过认证后访问
+        pattern.put("/role/admin", "loginFilter, roleFilter[admin]");
+        pattern.put("/role/guest", "loginFilter, roleFilter[admin,guest]");
+        pattern.put("/**", "loginFilter"); // 通过认证后访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(pattern);
 
         LinkedHashMap<String, Filter> filterMap = new LinkedHashMap<>();
@@ -52,4 +51,5 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilters(filterMap);
         return shiroFilterFactoryBean;
     }
+
 }

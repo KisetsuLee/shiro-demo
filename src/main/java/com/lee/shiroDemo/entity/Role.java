@@ -34,7 +34,8 @@ public class Role {
     }
 
     public enum Permission {
-        READ("read"), WRITE("write");
+        READ("read"), WRITE("write"),SUPERMAN("superman");
+
         private String value;
 
         Permission(String value) {
